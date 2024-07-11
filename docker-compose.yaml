@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  middleware:
+    build: .
+    container_name: middleware
+    ports:
+      - "5000:5000"
+    environment:
+      FLASK_ENV: development
+      FLASK_DEBUG: 1
+      SQLALCHEMY_DATABASE_URI: "postgresql://user:password@db/moviesdb"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    container_name: db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: moviesdb
